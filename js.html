@@ -1,11 +1,11 @@
 <script>
 
-  
   function crearTablaContactos(){
+    //borramos la tabla
+    eliminarTabla();
 
-    let tabla = document.getElementById("tablaContactos");
-    if(tabla) tabla.remove();
-
+    //crear loader
+    crearLoaderPunto("divContactos");
 
     google.script.run
     .withSuccessHandler(crearTablaContactosCorrectamente)
@@ -54,11 +54,17 @@
 
         //Mostrar notificación de ok
         crearNotificacionOK('Contactos obtenidos correctamente', 'Notificación de éxito');
+
+        //Eliminar loader
+        eliminarLoader();
     }
 
     function mostrarError(){
         //Mostrar notificación de error
         crearNotificacionError('No se han podido leer los contactos', 'Error');
+        
+        //Eliminar loader
+        eliminarLoader();
 
     }
 
@@ -105,6 +111,31 @@
     function  crearColorNotifacion(color){
         let elementoNotificacion = document.getElementById("notificacion");
         elementoNotificacion.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue(color);
+    }
+
+    function crearLoaderPunto(elementoPadre){
+        let loader = crearLoader(elementoPadre);
+        loader.classList.add("lds-circle");
+    }
+
+
+    function crearLoader(elementoPadre){
+        eliminarLoader();
+        let loader = document.createElement("div");
+        loader.id = "loader";
+        loader.appendChild(document.createElement("div"));
+        return document.getElementById(elementoPadre).appendChild(loader);
+        
+    }
+
+    function eliminarLoader(){
+        let loader = document.getElementById("loader");
+        if(loader) loader.remove();
+    }
+
+    function eliminarTabla(){
+        let tabla = document.getElementById("tablaContactos");
+        if(tabla) tabla.remove();
     }
 
 </script>
