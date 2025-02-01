@@ -28,3 +28,16 @@ function modificarContacto(numFila, datos){
   let celdas = HOJA.getRange('A'+numFila+':D'+numFila);
   celdas.setValues([[datos.nombre, datos.apellido, datos.correo, datos.telefono]]);
 }
+
+function importarContactos(){
+  let url = 'https://randomuser.me/api/?results=10&inc=name,email,phone';
+  respuesta = UrlFetchApp.fetch(url).getContentText();
+  let datos = JSON.parse(respuesta);
+
+  datos.results.forEach(insertarContactoJSON);
+
+}
+
+function insertarContactoJSON(contacto){
+  HOJA.appendRow([contacto.name.first, contacto.name.last, contacto.email, contacto.phone])
+}
