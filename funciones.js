@@ -1,7 +1,11 @@
+const HOJA = SpreadsheetApp.openById('1G0Jt0WyEQ4vc0ExseKJitmSOCuYvuMXRd5Smp_hk2ag').getActiveSheet();
+
 function doGet(){
-    return HtmlService.createTemplateFromFile('web')
-                      .evaluate()
-                      .setTitle('Servicio de transporte Golden Line');
+    return HtmlService.createTemplateFromFile('web').evaluate().setTitle('Servicio de transporte Golden Line');
+}
+
+function doPost(){
+  return HtmlService.createTemplateFromFile('web').evaluate().setTitle('Servicio de transporte Golden Line');
 }
 
 function obtenerDatosHTML(nombre){
@@ -9,7 +13,18 @@ function obtenerDatosHTML(nombre){
 }
 
 function obtenerContactos(){
-   let hoja = SpreadsheetApp.openById('1G0Jt0WyEQ4vc0ExseKJitmSOCuYvuMXRd5Smp_hk2ag').getActiveSheet();
-   let datos = hoja.getDataRange().getValues();
-   return datos;
+   return HOJA.getDataRange().getValues();
+}
+
+function insertarContacto(nombre,apellido, correo, telefono){
+  HOJA.appendRow([nombre,apellido, correo, telefono]);
+}
+
+function borrarContacto(numFila){
+  HOJA.deleteRow(numFila);
+}
+
+function modificarContacto(numFila, datos){
+  let celdas = HOJA.getRange('A'+numFila+':D'+numFila);
+  celdas.setValues([[datos.nombre, datos.apellido, datos.correo, datos.telefono]]);
 }
