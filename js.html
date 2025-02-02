@@ -96,6 +96,16 @@
                 let celda = document.createElement("td");
                 celda.textContent = obj[i][j];
                 fila.appendChild(celda);
+
+                //si es el quinto elemento
+                if(j== 4){
+                    //creamos la imagen
+                    celda.textContent = '';
+                    let imagen = document.createElement('img');
+                    imagen.classList.add('img-fluid', 'rounded');
+                    imagen.src = obj[i][j];
+                    celda.appendChild(imagen);
+                }
             }
             //agregar los botones a la fila
             fila.appendChild(crearCeldaBotones(i+1,obj[i]));
@@ -110,9 +120,6 @@
         tabla.classList.add("table", "table-striped", "border", "border-4", "border-dark");
         //Agregamos la tabla al div
         document.getElementById("divContactos").appendChild(tabla);
-
-        //Mostrar notificación de ok
-        crearNotificacionOK('Contactos obtenidos correctamente', 'Notificación de éxito');
 
         //Eliminar loader
         eliminarLoader();
