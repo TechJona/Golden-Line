@@ -27,7 +27,7 @@
         tarjetas.classList.add('container');
 
         //por cada contacto agregamos una tarjeta
-        contactos.forEach(contacto => tarjetas.appendChild(crearTarjeta(contacto));
+        contactos.forEach(contacto => tarjetas.appendChild(crearTarjeta(contacto)));
 
         //agregar tarjetas
         document.getElementById('divContactos').appendChild(tarjetas);
@@ -45,7 +45,7 @@
 
         //creamos datos y botones
         let datosTarjeta = crearDatosTarjeta(tarjeta);
-        let divBotones = crearBotonesTarjeta(tarjeta);
+        let divBotones = crearBotonesContacto(tarjeta);
         datosTarjeta.appendChild(divBotones);
         //creamos imagen
         let imagenTarjeta = crearImagenTarjeta(tarjeta);
