@@ -115,6 +115,7 @@ function insertarContactoError(){
       crearNotificacionCONTACTO('Contacto modificado correctamente', 'MODIFICADO OK');
 
       mostrar();
+    }
 
     function contactoModificadoError(){
         //Mostrar notificación de error
@@ -128,9 +129,7 @@ function insertarContactoError(){
         //Mostrar notificación de error
         crearNotificacionERROR('No se han podido leer los contactos', 'Error');
         
-        //Eliminar loader
-        eliminarLoader();
-
+        mostrar();
     }
 
     //IMPORTAR CONTACTO
@@ -155,7 +154,7 @@ function insertarContactoError(){
         //Mostrar notificación de error
         crearNotificacionERROR('No se han podido crear los contactos', 'ERROR');
         
-       mostrar();
+        mostrar();
     }
 
     
