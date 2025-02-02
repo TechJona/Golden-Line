@@ -14,8 +14,8 @@
 
   <!--Notificaciones-->
   <div class="div-notificaciones position-fixed bottom-0 end-0 p-3">
-    <div class="toast-container"  id="contenedorNotificaciones">
-        <!-- Aqui van las notificaciones-->
+    <div class="toast-container" id="contenedorNotificaciones">
+      <!-- Aqui van las notificaciones-->
     </div>
   </div>
 
@@ -34,20 +34,23 @@
             <div class="row mb-3">
               <div class="col-4">
                 <label form="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" pattern="[\D]*" title="El nombre no puede contener numeros" required>
+                <input type="text" class="form-control" name="nombre" id="nombre" pattern="[\D]*"
+                  title="El nombre no puede contener numeros" required>
               </div>
               <div class="col-8">
                 <label form="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" name="apellido" id="apellido" pattern="[\D]*" title="El apellido no puede contener numeros" required>
+                <input type="text" class="form-control" name="apellido" id="apellido" pattern="[\D]*"
+                  title="El apellido no puede contener numeros" required>
               </div>
             </div>
 
             <!-- Correo y telefonos -->
             <div class="input-group mb-3">
-              <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span> 
+              <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
               <input type="email" class="form-control me-4" name="correo" id="correo" required>
-              <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span> 
-              <input type="telefono" class="form-control" name="telefono" id="telefono" pattern="[\d]{10}" title="El telefono debe contener 10 digitos numericos"required>
+              <span class="input-group-text"><i class="bi bi-telephone-fill"></i></span>
+              <input type="telefono" class="form-control" name="telefono" id="telefono" pattern="[\d]{10}"
+                title="El telefono debe contener 10 digitos numericos" required>
             </div>
 
           </div>

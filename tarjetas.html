@@ -17,24 +17,17 @@
         eliminarLoader();
     }
 
-    function crearTarjetasCorrectamente(obj) {
+    function crearTarjetasCorrectamente(datos) {
+
+        //extraer contactos
+        let contactos = extraerContactos(datos);
+
         let tarjetas = document.createElement('div');
         tarjetas.id = 'tarjetasContactos';
         tarjetas.classList.add('container');
 
-        for (let i = 1; i < obj.length; i++) {
-            let tarjeta = {
-                nombre: obj[i][0],
-                apellido: obj[i][1],
-                correo: obj[i][2],
-                telefono: obj[i][3],
-                imagen: obj[i][4],
-                indice: i + 1
-            }
-
-            //Agregamos tarjeta al total de tarjetas
-            tarjetas.appendChild(crearTarjeta(tarjeta));
-        }
+        //por cada contacto agregamos una tarjeta
+        contactos.forEach(contacto => tarjetas.appendChild(crearTarjeta(contacto));
 
         //agregar tarjetas
         document.getElementById('divContactos').appendChild(tarjetas);
@@ -100,61 +93,6 @@
         return datosTarjeta;
     }
 
-    function crearBotonesTarjeta(tarjeta) {
-        let divBotones = document.createElement('div');
-        divBotones.classList.add('d-flex', 'justify-content-start', 'mt-auto');
-
-        divBotones.appendChild(crearBotonInfoTarjeta(tarjeta));
-        divBotones.appendChild(crearBotonBorrarTarjeta(tarjeta));
-        divBotones.appendChild(crearBotonModificarTarjeta(tarjeta));
-
-        return divBotones;
-    }
-
-    function crearBotonInfoTarjeta(tarjeta) {
-        //boton info
-        let botonInfo = document.createElement('button');
-        botonInfo.id = 'botonInfo' + tarjeta.indice;
-        botonInfo.classList.add('btn', 'btn-success', 'm-1');
-        botonInfo.onclick = () => mostrarInformacionAdicionalContacto(tarjeta);
-
-        //icono
-        let iconoInfo = document.createElement('i');
-        iconoInfo.classList.add('bi', 'bi-plus-square');
-        botonInfo.appendChild(iconoInfo);
-        return botonInfo;
-    }
-
-    function crearBotonBorrarTarjeta(tarjeta) {
-        //boton borrar
-        let botonBorrar = document.createElement('button');
-        botonBorrar.id = 'botonBorrar' + tarjeta.indice;
-        botonBorrar.classList.add('btn', 'btn-danger', 'm-1');
-        botonBorrar.onclick = () => borrarContacto(tarjeta.indice);
-
-        //icono
-        let iconoBorrar = document.createElement('i');
-        iconoBorrar.classList.add('bi', 'bi-trash');
-        botonBorrar.appendChild(iconoBorrar);
-
-        return botonBorrar;
-    }
-
-    function crearBotonModificarTarjeta(tarjeta) {
-        //boton modificar
-        let botonModificar = document.createElement('button');
-        botonModificar.id = 'botonModificar' + tarjeta.indice;
-        botonModificar.classList.add('btn', 'btn-warning', 'm-1');
-        botonModificar.onclick = () => abrirModalModificarContacto(tarjeta.indice, tarjeta);
-
-        //icono
-        let iconoModificar = document.createElement('i');
-        iconoModificar.classList.add('bi', 'bi-pencil-square');
-        botonModificar.appendChild(iconoModificar);
-
-        return botonModificar;
-    }
-
     function crearImagenTarjeta(tarjeta) {
         let imagenTarjeta = document.createElement('div');
         imagenTarjeta.classList.add('col-6', 'd-flex', 'justify-content-end', 'rounded');
@@ -170,12 +108,23 @@
         return imagenTarjeta;
     }
 
+    function crearBotonesContacto(contacto) {
+        let divBotones = document.createElement('div');
+        divBotones.classList.add('d-flex', 'justify-content-start', 'mt-auto');
+
+        divBotones.appendChild(crearBotonInfoContacto(contacto));
+        divBotones.appendChild(crearBotonBorrarContacto(contacto));
+        divBotones.appendChild(crearBotonModificarContacto(contacto));
+
+        return divBotones;
+    }
+
     function mostrarInformacionAdicionalContacto(tarjeta) {
 
     }
 
-    function eliminarTarjetas(){
+    function eliminarTarjetas() {
         let tarjetas = document.getElementById("tarjetasContactos");
-        if(tarjetas) tarjetas.remove();
+        if (tarjetas) tarjetas.remove();
     }
 </script>

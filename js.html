@@ -1,162 +1,154 @@
 <script>
 
   //boton subir
-  window.addEventListener('scroll', function(){
-    if(this.window.scrollY > 500){
-        document.getElementById('botonSubir').style.transform = 'scale(1)';
+  window.addEventListener('scroll', function () {
+    if (this.window.scrollY > 500) {
+      document.getElementById('botonSubir').style.transform = 'scale(1)';
     }
-    if(this.window.scrollY < 500){
-        document.getElementById('botonSubir').style.transform = 'scale(0)';
+    if (this.window.scrollY < 500) {
+      document.getElementById('botonSubir').style.transform = 'scale(0)';
     }
   })
 
-  function subirArriba(){
+  function subirArriba() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
   }
 
-  function limpiar(){
+  function limpiar() {
     eliminarTabla();
     eliminarTarjetas();
     crearLoaderPunto("divContactos");
   }
 
-  function mostrar(){
+  function mostrar() {
     crearTarjetasContactos();
     eliminarLoader();
   }
 
   //INSERTAR CONTACTO
-  function insertarContacto(){
+  function insertarContacto() {
 
-limpiar();
+    limpiar();
 
-//Obtener datos
-let nombre = document.getElementById("nombre").value;
-let apellido = document.getElementById("apellido").value;
-let correo = document.getElementById("correo").value;
-let telefono = document.getElementById("telefono").value;
+    //Obtener datos
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let correo = document.getElementById("correo").value;
+    let telefono = document.getElementById("telefono").value;
 
-//cerrar modal
-bootstrap.Modal.getInstance(document.getElementById('crearContactoModal')).hide();
+    //cerrar modal
+    bootstrap.Modal.getInstance(document.getElementById('crearContactoModal')).hide();
 
-google.script.run
-.withSuccessHandler(insertarContactoCorrectamente)
-.withFailureHandler(mostrarError)
-.insertarContacto(nombre, apellido, correo, telefono);
-}
+    google.script.run
+      .withSuccessHandler(insertarContactoCorrectamente)
+      .withFailureHandler(mostrarError)
+      .insertarContacto(nombre, apellido, correo, telefono);
+  }
 
-function insertarContactoCorrectamente(){
-//eliminamos los datos de los inputs
-document.getElementById('nombre').value="";
-document.getElementById('correo').value="";
+  function insertarContactoCorrectamente() {
+    //eliminamos los datos de los inputs
+    document.getElementById('nombre').value = "";
+    document.getElementById('correo').value = "";
 
-//mostrar notificacion
-crearNotificacionCONTACTO('Se han insertado los datos correctamente', 'CONTACTO OK');
+    //mostrar notificacion
+    crearNotificacionCONTACTO('Se han insertado los datos correctamente', 'CONTACTO OK');
 
-mostrar();
-}
+    mostrar();
+  }
 
-function insertarContactoError(){
+  function insertarContactoError() {
     //Mostrar notificación de error
     crearNotificacionERROR('No se ha podido insertar el contacto', 'ERROR');
-    
+
     mostrar();
 
-}
+  }
 
   //BORRAR CONTACTO
-    function borrarContacto(numFila){
+  function borrarContacto(numFila) {
 
-            limpiar();
+    limpiar();
 
-          google.script.run
-          .withSuccessHandler(contactoBorradoCorrectamente)
-          .withFailureHandler(contactoBorradoError)
-          .borrarContacto(numFila);
-    }
+    google.script.run
+      .withSuccessHandler(contactoBorradoCorrectamente)
+      .withFailureHandler(contactoBorradoError)
+      .borrarContacto(numFila);
+  }
 
-    function contactoBorradoCorrectamente(){
-      //mostrar notificacion
-      crearNotificacionBORRAR('Contacto borrado correctamente', 'BORRADO OK');
+  function contactoBorradoCorrectamente() {
+    //mostrar notificacion
+    crearNotificacionBORRAR('Contacto borrado correctamente', 'BORRADO OK');
 
-      mostrar();
-    }
+    mostrar();
+  }
 
-    function contactoBorradoError(){
-        //Mostrar notificación de error
-        crearNotificacionERROR('No se ha podido borrar el contacto', 'ERROR');
-        
-        mostrar();
-    }
+  function contactoBorradoError() {
+    //Mostrar notificación de error
+    crearNotificacionERROR('No se ha podido borrar el contacto', 'ERROR');
 
-    //MODIFICAR CONTACTO
-    function modificarContacto(numFila){
+    mostrar();
+  }
 
-        limpiar();
+  //MODIFICAR CONTACTO
+  function modificarContacto(numFila) {
 
-          //cerrar modal
-          bootstrap.Modal.getOrCreateInstance(document.getElementById('crearContactoModal')).hide();
+    limpiar();
 
-          //obtener nuevos datos a partir del formulario
-          let nombre = document.getElementById("nombre").value;
-          let apellido = document.getElementById("apellido").value;
-          let correo = document.getElementById("correo").value;
-          let telefono = document.getElementById("telefono").value;
+    //cerrar modal
+    bootstrap.Modal.getOrCreateInstance(document.getElementById('crearContactoModal')).hide();
 
-          google.script.run
-          .withSuccessHandler(contactoModificadoCorrectamente)
-          .withFailureHandler(contactoModificadoError)
-          .modificarContacto(numFila,{nombre, apellido, correo, telefono});
-    }
+    //obtener nuevos datos a partir del formulario
+    let nombre = document.getElementById("nombre").value;
+    let apellido = document.getElementById("apellido").value;
+    let correo = document.getElementById("correo").value;
+    let telefono = document.getElementById("telefono").value;
 
-    function contactoModificadoCorrectamente(){
-      //mostrar notificacion
-      crearNotificacionCONTACTO('Contacto modificado correctamente', 'MODIFICADO OK');
+    google.script.run
+      .withSuccessHandler(contactoModificadoCorrectamente)
+      .withFailureHandler(contactoModificadoError)
+      .modificarContacto(numFila, { nombre, apellido, correo, telefono });
+  }
 
-      mostrar();
-    }
+  function contactoModificadoCorrectamente() {
+    //mostrar notificacion
+    crearNotificacionCONTACTO('Contacto modificado correctamente', 'MODIFICADO OK');
 
-    function contactoModificadoError(){
-        //Mostrar notificación de error
-        crearNotificacionERROR('No se ha podido modificar el contacto', 'ERROR');
-        
-        mostrar();
-    }
+    mostrar();
+  }
+
+  function contactoModificadoError() {
+    //Mostrar notificación de error
+    crearNotificacionERROR('No se ha podido modificar el contacto', 'ERROR');
+
+    mostrar();
+  }
+
+  //IMPORTAR CONTACTO
+  function importarContactos() {
+
+    limpiar();
+
+    google.script.run
+      .withSuccessHandler(contactosImportadosCorrectamente)
+      .withFailureHandler(contactosImportadosError)
+      .importarContactos();
+  }
+
+  function contactosImportadosCorrectamente() {
+    //mostrar notificacion
+    crearNotificacionOK('Contactos agregados correctamente', 'OK');
+
+    mostrar();
+  }
+
+  function contactosImportadosError() {
+    //Mostrar notificación de error
+    crearNotificacionERROR('No se han podido crear los contactos', 'ERROR');
+
+    mostrar();
+  }
 
 
-    function mostrarError(){
-        //Mostrar notificación de error
-        crearNotificacionERROR('No se han podido leer los contactos', 'Error');
-        
-        mostrar();
-    }
-
-    //IMPORTAR CONTACTO
-    function importarContactos(){
-
-        limpiar();
-
-        google.script.run
-        .withSuccessHandler(contactosImportadosCorrectamente)
-        .withFailureHandler(contactosImportadosError)
-        .importarContactos();
-    }
-
-    function contactosImportadosCorrectamente(){
-      //mostrar notificacion
-      crearNotificacionOK('Contactos agregados correctamente', 'OK');
-
-      mostrar();
-    }
-
-    function contactosImportadosError(){
-        //Mostrar notificación de error
-        crearNotificacionERROR('No se han podido crear los contactos', 'ERROR');
-        
-        mostrar();
-    }
-
-    
 
 </script>
