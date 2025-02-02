@@ -1,0 +1,23 @@
+<script>
+
+function crearLoaderPunto(elementoPadre){
+    let loader = crearLoader(elementoPadre);
+    loader.classList.add("lds-circle");
+}
+
+
+function crearLoader(elementoPadre){
+    eliminarLoader();
+    let loader = document.createElement("div");
+    loader.id = "loader";
+    loader.appendChild(document.createElement("div"));
+    return document.getElementById(elementoPadre).appendChild(loader);
+    
+}
+
+function eliminarLoader(){
+    let loader = document.getElementById("loader");
+    if(loader) loader.remove();
+}
+
+</script>
